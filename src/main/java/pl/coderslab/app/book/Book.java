@@ -1,5 +1,7 @@
 package pl.coderslab.app.book;
 
+import pl.coderslab.app.publisher.Publisher;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,9 @@ public class Book {
     @Column(length = 1024)
     private String description;
 
+    @ManyToOne
+    private Publisher publisher;
+
     @Override
     public String toString() {
         return "Book{" +
@@ -22,6 +27,7 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
+                ", publisher=" + publisher +
                 '}';
     }
 
@@ -55,5 +61,13 @@ public class Book {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 }

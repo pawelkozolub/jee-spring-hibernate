@@ -1,15 +1,19 @@
 package pl.coderslab.app.book;
 
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.app.publisher.Publisher;
+import pl.coderslab.app.publisher.PublisherDao;
 
 @RestController
 @RequestMapping("/books")
 public class BookController {
 
     private final BookDao bookDao;
+    private final PublisherDao publisherDao;
 
-    public BookController(BookDao bookDao) {
+    public BookController(BookDao bookDao,PublisherDao publisherDao) {
         this.bookDao = bookDao;
+        this.publisherDao = publisherDao;
     }
 
     @GetMapping("/get")
@@ -19,10 +23,12 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    public String create(@RequestParam String title, @RequestParam Integer rating) {
+    public String create(@RequestParam String title, @RequestParam Integer rating, @RequestParam Long publisherId) {
+        Publisher publisher = publisherDao.findById(publisherId);
         Book book = new Book();
         book.setTitle(title);
         book.setRating(rating);
+        book.setPublisher(publisher);
         bookDao.save(book);
         return book.toString();
     }

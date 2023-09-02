@@ -1,0 +1,6 @@
+### Create publisher
+POST localhost:8080/publishers/create
+Content-Type: application/x-www-form-urlencoded
+
+name=Publisher No 2
+

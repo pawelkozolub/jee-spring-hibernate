@@ -7,3 +7,9 @@ title=Test title&rating=7
 ### Get book
 GET localhost:8080/books/get?id=1
 
+### Create book
+POST localhost:8080/books/create
+Content-Type: application/x-www-form-urlencoded
+
+title=Book 2&rating=5&publisherId=2
+
