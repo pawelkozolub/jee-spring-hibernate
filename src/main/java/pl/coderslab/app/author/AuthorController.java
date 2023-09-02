@@ -15,31 +15,31 @@ public class AuthorController {
 
     @GetMapping("/get")
     public String get(@RequestParam Long id) {
-        Book author = authorDao.findById(id);
+        Author author = authorDao.findById(id);
         return author.toString();
     }
 
     @PostMapping("/create")
-    public String create(@RequestParam String title, @RequestParam Integer rating) {
-        Book author = new Book();
-        author.setTitle(title);
-        author.setRating(rating);
+    public String create(@RequestParam String firstName, @RequestParam String lastName) {
+        Author author = new Author();
+        author.setFirstName(firstName);
+        author.setLastName(lastName);
         authorDao.save(author);
         return author.toString();
     }
 
     @PostMapping("/update")
-    public String update(@RequestParam Long id, @RequestParam String title, @RequestParam Integer rating) {
-        Book author = authorDao.findById(id);
-        author.setTitle(title);
-        author.setRating(rating);
+    public String update(@RequestParam Long id, @RequestParam String firstName, @RequestParam String lastName) {
+        Author author = authorDao.findById(id);
+        author.setFirstName(firstName);
+        author.setLastName(lastName);
         authorDao.update(author);
         return author.toString();
     }
 
     @PostMapping("/delete")
     public String delete(@RequestParam Long id) {
-        Book author = authorDao.findById(id);
+        Author author = authorDao.findById(id);
         authorDao.delete(author);
         return author.toString();
     }
