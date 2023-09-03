@@ -3,6 +3,9 @@ package pl.coderslab.app.book;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.app.author.Author;
+import pl.coderslab.app.author.AuthorDao;
+import pl.coderslab.app.publisher.Publisher;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -54,5 +57,25 @@ public class BookDao {
 //        query.setParameter("rating", rating);
 //        List<Book> books = query.getResultList();
 //        return books;
+    }
+
+    public List<Book> findAllWithPublisher() {
+        return entityManager
+                .createQuery("SELECT b FROM Book b JOIN b.publisher", Book.class)
+                //.createQuery("SELECT b FROM Book b WHERE b.publisher IS NOT NULL", Book.class)    // alternative
+                .getResultList();
+    }
+
+    public List<Book> findAllByPublisher(Publisher publisher) {
+        return entityManager.createQuery("SELECT b FROM Book b WHERE b.publisher = :publisher", Book.class)
+                .setParameter("publisher", publisher)
+                .getResultList();
+    }
+
+    public List<Book> findAllByAuthor(Author author) {
+        return entityManager.createQuery("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors " +
+                "WHERE :author MEMBER OF b.authors", Book.class)
+                .setParameter("author", author)
+                .getResultList();
     }
 }
