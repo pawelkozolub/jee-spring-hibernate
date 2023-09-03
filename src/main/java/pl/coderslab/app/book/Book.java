@@ -24,7 +24,7 @@ public class Book {
     private Publisher publisher;
 
     //@ManyToMany
-    @ManyToMany(fetch = FetchType.EAGER)    // to get authors data
+    @ManyToMany(fetch = FetchType.EAGER)    // to get authors data > e.g. when selecting the book (findById)
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
