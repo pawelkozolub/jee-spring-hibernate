@@ -30,17 +30,29 @@ public class BookDao {
 
     public Book findById(Long id) {
         return entityManager.find(Book.class, id);
-        //
+
         // Alternative to @ManyToMany(fetch = FetchType.EAGER)    // to get authors data
-        //
 //        Book book = entityManager.find(Book.class, id);
 //        Hibernate.initialize(book.getAuthors());
 //        return book;
     }
 
     public List<Book> findAll() {
-        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b", Book.class); // prepare stmt
-        List<Book> books = query.getResultList(); // execute stmt
-        return books;
+        return entityManager.createQuery("SELECT b FROM Book b", Book.class).getResultList();
+
+//        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b", Book.class); // prepare stmt
+//        List<Book> books = query.getResultList(); // execute stmt
+//        return books;
+    }
+
+    public List<Book> findAllByRating(Integer rating) {
+        return entityManager.createQuery("SELECT b FROM Book b WHERE b.rating = :rating", Book.class)
+                .setParameter("rating", rating)
+                .getResultList();
+
+//        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b WHERE b.rating = :rating", Book.class);
+//        query.setParameter("rating", rating);
+//        List<Book> books = query.getResultList();
+//        return books;
     }
 }
