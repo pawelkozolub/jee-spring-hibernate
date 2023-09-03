@@ -3,6 +3,7 @@ package pl.coderslab.app.book;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.app.author.AuthorDao;
 import pl.coderslab.app.publisher.PublisherDao;
@@ -25,5 +26,19 @@ public class BookViewController {
     public String getListView(Model model) {
         model.addAttribute("books", bookDao.findAll());
         return "/books/list-view";
+    }
+
+    @GetMapping("/add")
+    public String getAddView(Model model) {
+        model.addAttribute("book", new Book());
+        model.addAttribute("publisherList", publisherDao.findAll());
+        model.addAttribute("authorList", authorDao.findAll());
+        return "/books/add-view";
+    }
+
+    @PostMapping("/add")
+    public String addBook(Book book) {
+        bookDao.save(book);
+        return "redirect:/view/book/list";
     }
 }
