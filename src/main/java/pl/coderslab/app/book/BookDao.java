@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -34,5 +36,11 @@ public class BookDao {
 //        Book book = entityManager.find(Book.class, id);
 //        Hibernate.initialize(book.getAuthors());
 //        return book;
+    }
+
+    public List<Book> findAll() {
+        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b", Book.class); // prepare stmt
+        List<Book> books = query.getResultList(); // execute stmt
+        return books;
     }
 }
