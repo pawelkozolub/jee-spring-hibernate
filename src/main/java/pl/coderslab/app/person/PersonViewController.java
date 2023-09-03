@@ -1,6 +1,7 @@
 package pl.coderslab.app.person;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,5 +34,17 @@ public class PersonViewController {
         personDao.save(person);
         // response.sendRedirect(request.getContextPath + "/view/person/old-way");      // as in servlets
         return "redirect:/view/person/old-way";
+    }
+
+    @GetMapping("/new-way")
+    public String getViewNewWay(Model model) {
+        model.addAttribute("person", new Person());
+        return "person-new";
+    }
+
+    @PostMapping("/new-way")
+    public String createPersonNewWay(Person person) {
+        personDao.save(person);
+        return "redirect:/view/person/new-way";
     }
 }
