@@ -7,9 +7,17 @@ title=Test title&rating=7
 ### Get book
 GET localhost:8080/books/get?id=1
 
-### Create book
+### Create book - for task 1 (with Publisher id)
 POST localhost:8080/books/create
 Content-Type: application/x-www-form-urlencoded
 
 title=Book 2&rating=5&publisherId=2
 
+### Create book - for task 2 (with Publisher id and List of Author ids)
+POST localhost:8080/books/create
+Content-Type: application/x-www-form-urlencoded
+
+title={{$random.alphabetic(4)}}&rating=5&publisherId=3&authorIds=2&authorIds=4
+
+### Get book
+GET localhost:8080/books/get?id=5

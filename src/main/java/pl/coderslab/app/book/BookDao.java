@@ -1,5 +1,6 @@
 package pl.coderslab.app.book;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,5 +28,11 @@ public class BookDao {
 
     public Book findById(Long id) {
         return entityManager.find(Book.class, id);
+        //
+        // Alternative to @ManyToMany(fetch = FetchType.EAGER)    // to get authors data
+        //
+//        Book book = entityManager.find(Book.class, id);
+//        Hibernate.initialize(book.getAuthors());
+//        return book;
     }
 }

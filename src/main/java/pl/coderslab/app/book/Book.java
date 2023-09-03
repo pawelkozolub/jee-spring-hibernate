@@ -1,8 +1,11 @@
 package pl.coderslab.app.book;
 
+import pl.coderslab.app.author.Author;
 import pl.coderslab.app.publisher.Publisher;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -20,6 +23,13 @@ public class Book {
     @ManyToOne
     private Publisher publisher;
 
+    //@ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)    // to get authors data
+    @JoinTable(name = "books_authors",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private List<Author> authors = new ArrayList<>();
+
     @Override
     public String toString() {
         return "Book{" +
@@ -28,6 +38,7 @@ public class Book {
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
                 ", publisher=" + publisher +
+                ", authors=" + authors +
                 '}';
     }
 
@@ -69,5 +80,13 @@ public class Book {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 }
