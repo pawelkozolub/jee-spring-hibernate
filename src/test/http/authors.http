@@ -1,0 +1,23 @@
+### Create author
+POST localhost:8080/authors/create
+Content-Type: application/x-www-form-urlencoded
+
+firstName={{$random.alphabetic(4)}}&lastName={{$random.alphabetic(8)}}
+
+### Get author
+GET localhost:8080/authors/get?id=1
+
+### Update author
+POST localhost:8080/authors/update
+Content-Type: application/x-www-form-urlencoded
+
+id=1&firstName=Aaa2&lastName=Bbb2k
+
+### Delete author
+POST localhost:8080/authors/delete
+Content-Type: application/x-www-form-urlencoded
+
+id=1
+
+### Get all authors
+GET localhost:8080/authors

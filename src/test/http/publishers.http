@@ -1,0 +1,29 @@
+### Create publisher
+POST localhost:8080/publishers/create
+Content-Type: application/x-www-form-urlencoded
+
+name=Publisher No 3
+
+### Get publisher
+GET localhost:8080/publishers/get?id=1
+
+### Create publisher - with random generated name
+POST localhost:8080/publishers/create
+Content-Type: application/x-www-form-urlencoded
+
+name={{$random.alphabetic(10)}}
+
+### Update publisher
+POST localhost:8080/publishers/update
+Content-Type: application/x-www-form-urlencoded
+
+id=4&name=Publisher 4
+
+### Delete publisher
+POST localhost:8080/publishers/delete
+Content-Type: application/x-www-form-urlencoded
+
+id=1
+
+### GET publishers
+GET localhost:8080/publishers

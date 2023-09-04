@@ -1,0 +1,17 @@
+### Get person
+GET localhost:8080/persons/1
+
+### Create person
+POST localhost:8080/view/person/new-way
+Content-Type: application/x-www-form-urlencoded
+
+login=abc&email=em@em.pl&password=admin123&id=7&details.firstName=Kajko
+
+### Update person
+POST localhost:8080/persons/1
+Content-Type: application/x-www-form-urlencoded
+
+email={{$random.email}}&details.firstName={{$random.alphabetic(12)}}&details.lastName={{$random.alphabetic(16)}}
+
+### Delete person
+DELETE localhost:8080/persons/1
