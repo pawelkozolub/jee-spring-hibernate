@@ -48,6 +48,13 @@ public class BookDao {
 //        return books;
     }
 
+    // Additional with FETCH ALL PROPERTIES
+//    public List<Book> findAll() {
+//        TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b FETCH ALL PROPERTIES", Book.class);
+//        List<Book> books = query.getResultList();
+//        return books;
+//    }
+
     public List<Book> findAllByRating(Integer rating) {
         return entityManager.createQuery("SELECT b FROM Book b WHERE b.rating = :rating", Book.class)
                 .setParameter("rating", rating)
