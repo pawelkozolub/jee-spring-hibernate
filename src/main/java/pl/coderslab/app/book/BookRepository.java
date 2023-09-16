@@ -17,9 +17,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> findAllByCategory_Name(String categoryName);
 
-    List<Book> findAllByAuthorsContains(Author author);
+    List<Book> findAllByAuthorsContains(Author author);             // contains > for the list of authors
 
-    List<Book> findAllByPublisherContains(Publisher publisher);
+    List<Book> findAllByPublisherEquals(Publisher publisher);       // equals > publisher is a single field
+    List<Book> findAllByPublisherIn(List<Publisher> publisherList); // if publisher list is provided
 
     List<Book> findAllByRating(Integer rating);
 
