@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.app.author.AuthorDao;
 import pl.coderslab.app.publisher.PublisherDao;
 
@@ -39,6 +40,20 @@ public class BookViewController {
     @PostMapping("/add")
     public String addBook(Book book) {
         bookDao.save(book);
+        return "redirect:/view/book/list";
+    }
+
+    @GetMapping("/update")
+    public String getUpdateView(Model model, @RequestParam long id) {
+        model.addAttribute("book", bookDao.findById(id));
+        model.addAttribute("publisherList", publisherDao.findAll());
+        model.addAttribute("authorList", authorDao.findAll());
+        return "/books/update-view";
+    }
+
+    @PostMapping("/update")
+    public String updateBook(Book book) {
+        bookDao.update(book);
         return "redirect:/view/book/list";
     }
 }
