@@ -17,11 +17,13 @@ import javax.validation.Valid;
 public class BookViewController {
 
     private final BookDao bookDao;
+    private final BookRepository bookRepository;
     private final AuthorDao authorDao;
     private final PublisherDao publisherDao;
 
-    public BookViewController(BookDao bookDao, AuthorDao authorDao, PublisherDao publisherDao) {
+    public BookViewController(BookDao bookDao, BookRepository bookRepository, AuthorDao authorDao, PublisherDao publisherDao) {
         this.bookDao = bookDao;
+        this.bookRepository = bookRepository;
         this.authorDao = authorDao;
         this.publisherDao = publisherDao;
     }
@@ -54,7 +56,8 @@ public class BookViewController {
             model.addAttribute("authorList", authorDao.findAll());
             return "/books/add-view";
         }
-        bookDao.save(book);
+        //bookDao.save(book);   // change into Spring Data (below)
+        bookRepository.save(book);
         return "redirect:/view/book/list";
     }
 
