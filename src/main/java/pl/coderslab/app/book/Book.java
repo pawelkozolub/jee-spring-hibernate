@@ -1,9 +1,13 @@
 package pl.coderslab.app.book;
 
+import org.hibernate.validator.constraints.Range;
 import pl.coderslab.app.author.Author;
 import pl.coderslab.app.publisher.Publisher;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +19,17 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    @Size(min = 5)
     private String title;
+    @Range(min = 1, max = 10)
     private Integer rating;
+    @Size(max = 600)
     @Column(length = 1024)
     private String description;
+    @Min(1)
+    private Integer pages;
 
+    @NotNull
     @ManyToOne
     private Publisher publisher;
 
@@ -37,9 +47,18 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
+                ", pages=" + pages +
                 ", publisher=" + publisher +
                 ", authors=" + authors +
                 '}';
+    }
+
+    public Integer getPages() {
+        return pages;
+    }
+
+    public void setPages(Integer pages) {
+        this.pages = pages;
     }
 
     public Long getId() {
