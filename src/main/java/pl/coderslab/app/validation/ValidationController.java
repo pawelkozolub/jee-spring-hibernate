@@ -3,6 +3,7 @@ package pl.coderslab.app.validation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.app.book.Book;
 
 import javax.validation.ConstraintViolation;
@@ -19,6 +20,7 @@ public class ValidationController {
     }
 
     @GetMapping("/validate")
+    @ResponseBody
     public String validate() {
         Book invalidBook = new Book();
         invalidBook.setTitle("Abc");
