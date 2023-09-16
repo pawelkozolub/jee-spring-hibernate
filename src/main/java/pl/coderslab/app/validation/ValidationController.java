@@ -1,6 +1,7 @@
 package pl.coderslab.app.validation;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.coderslab.app.book.Book;
 
@@ -39,5 +40,20 @@ public class ValidationController {
         }
 
         return "ok";
+    }
+
+    @GetMapping("/view-validate")
+    public String validateWithView(Model model) {
+        Book invalidBook = new Book();
+        invalidBook.setTitle("Abc");
+        invalidBook.setRating(-5);
+        invalidBook.setPages(-10);
+        invalidBook.setPublisher(null);
+        invalidBook.setDescription("*".repeat(1000));
+
+        Set<ConstraintViolation<Book>> violations = validator.validate(invalidBook);
+        model.addAttribute("book", invalidBook);
+        model.addAttribute("violations", violations);
+        return "/violation-view";
     }
 }
