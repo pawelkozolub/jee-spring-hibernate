@@ -2,6 +2,7 @@ package pl.coderslab.app.book;
 
 import org.hibernate.validator.constraints.Range;
 import pl.coderslab.app.author.Author;
+import pl.coderslab.app.category.Category;
 import pl.coderslab.app.publisher.Publisher;
 
 import javax.persistence.*;
@@ -40,6 +41,9 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors = new ArrayList<>();
 
+    @ManyToOne
+    private Category category;
+
     @Override
     public String toString() {
         return "Book{" +
@@ -50,15 +54,8 @@ public class Book {
                 ", pages=" + pages +
                 ", publisher=" + publisher +
                 ", authors=" + authors +
+                ", category=" + category +
                 '}';
-    }
-
-    public Integer getPages() {
-        return pages;
-    }
-
-    public void setPages(Integer pages) {
-        this.pages = pages;
     }
 
     public Long getId() {
@@ -93,6 +90,14 @@ public class Book {
         this.description = description;
     }
 
+    public Integer getPages() {
+        return pages;
+    }
+
+    public void setPages(Integer pages) {
+        this.pages = pages;
+    }
+
     public Publisher getPublisher() {
         return publisher;
     }
@@ -107,5 +112,13 @@ public class Book {
 
     public void setAuthors(List<Author> authors) {
         this.authors = authors;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
